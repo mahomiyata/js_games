@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    let ctx;
+    function init () {
+      let straightInput = document.getElementById('checkbox');
+      const canvas = document.getElementById('canvas');
+      ctx = canvas.getContext('2d');
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+
+      setup(straightInput.checked);
+      straightInput.addEventListener('change', (e) => {
+        setup(e.target.checked);
+      });
+    }
+
+    function setup(straight) {
+      canvas.removeEventListener('mousedown', mouseonAction);
+      canvas.removeEventListener('mouseup', mouseupAction);
+      canvas.removeEventListener('mousemove', mousemoveAction);
+      if (straight) {
+        let start, end;
+        canvas.addEventListener('mousedown', mouseonAction);
+        canvas.addEventListener('mouseup', mouseupAction);
+      } else {
+        canvas.addEventListener('mousemove', mousemoveAction);
+      }
+    }
+
+    function mouseonAction(e) {
+      console.log("mouse down")
+      start = {
+        x: e.clientX,
+        y: e.clientY
+      }
+    }
+
+    function mouseupAction(e) {
+      console.log("mouse up")
+      end = {
+        x: e.clientX,
+        y: e.clientY
+      }
+      drawLine(start, end)
+    }
+
+    function drawLine (start, end) {
+      ctx.beginPath()
+      ctx.moveTo(start.x, start.y)
+      ctx.lineTo(end.x, end.y)
+      ctx.stroke()
+    }
+
+    function mousemoveAction (e) {
+      console.log("mouse move")
+      ctx.beginPath()
+      ctx.moveTo(e.clientX, e.clientY)
+      ctx.lineTo(e.clientX, e.clientY)
+      ctx.stroke()
+    }
+  </script>
+
+</head>
+<body onload="init()">
+  <canvas id="canvas" width="500" height="500" style="border: 1px solid saddlebrown;"></canvas>
+  <inpitlabel for="checkbox">straight</inpitlabel>
+  <input type="checkbox" id="checkbox">
+</body>
+</html>
