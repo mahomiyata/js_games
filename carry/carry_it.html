@@ -86,7 +86,6 @@
               gc.drawImage(imgLuggage, x * 40, y * 40, 40, 40);
             }
             if (data[y][x] == 3) {
-              console.log("nimotsu ari keri")
               filled++;
             }
             if (data[y][x] == 6) {
@@ -97,7 +96,6 @@
 
         gc.drawImage(imgWorker, px * 40, py * 40, 40, 40);
         if (filled == 6) {
-          console.log("You Win!");
           gc.drawImage(imgOme, 30, 100, 700, 160);
         }
       }
